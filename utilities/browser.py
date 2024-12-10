@@ -1,78 +1,84 @@
 import logging
-
 from selenium import webdriver
-
 from selenium.webdriver.chrome.options import Options
-
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from config.data_reader import DataReader
 
 json_config = DataReader(DataReader.FILE_CONFIG)
 
-
 class Browser:
-    driver = None
+    def __init__(self):
+        logging.info("Initializing new driver instance")
+        chrome_options = Options()
+        chrome_options.add_argument(json_config.get_data("Chrome_options", 0))
+        self.driver = webdriver.Chrome(options=chrome_options)
 
-    @classmethod
-    def initialize_driver(cls):
-        if cls.driver is None:
-            chrome_options = Options()
-            chrome_options.add_argument(json_config.get_data("Chrome_options", 0))
-            cls.driver = webdriver.Chrome(options=chrome_options)
+    def get(self):
+        logging.info("Navigating to URL")
+        return self.driver
 
-    @classmethod
-    def get(cls):
-        if cls.driver is None:
-            cls.initialize_driver()
-        return cls.driver
+    def close(self):
+        logging.info("Closing the browser window")
+        self.driver.close()
 
-    @classmethod
-    def close(cls):
-        cls.driver.close()
-        logging.info("handle close")
+    def quit(self):
+        logging.info("Quitting the browser session")
+        self.driver.quit()
 
-    @classmethod
-    def quit(cls):
-        cls.driver.quit()
-        logging.info("handle quit")
+    def refresh(self):
+        logging.info("Refreshing the browser")
+        self.driver.refresh()
 
-    @classmethod
-    def refresh(cls):
-        return cls.driver.refresh()
+    def scroll(self, x, y):
+        logging.info("Scrolling in the browser")
+        self.driver.execute_script(f"window.scrollTo({x},{y});")
 
-    @classmethod
-    def accept_to_alert(cls):
-        cls.driver.switch_to.alert.accept()
 
-    @classmethod
-    def dismiss_to_alert(cls):
-        cls.driver.switch_to.alert.dismiss()
+    def get_alert(self):
+        logging.info("get alert")
+        return WebDriverWait(self.driver, json_config.get_data_key("TIMEOUT")).until(
+            EC.alert_is_present()
+        )
 
-    @classmethod
-    def get_text_to_alert(cls):
-        alert = cls.driver.switch_to.alert
-        alert_text = alert.text
-        return alert_text
 
-    @classmethod
-    def send_keys_alert(cls, text):
-        cls.driver.switch_to.alert.send_keys(text)
+    def accept_to_alert(self):
+        logging.info("accept alert")
+        self.get_alert().accept()
 
-    @classmethod
-    def switch_handler(cls, value):
-        cls.driver.switch_to.window(cls.driver.window_handles[value])
 
-    @classmethod
-    def get_title_handler(cls):
-        return cls.driver.title
+    def dismiss_to_alert(self):
+        logging.info("dismiss alert")
+        self.get_alert().dismiss()
 
-    @classmethod
-    def switch_iframe(cls, iframe_identifier):
-        cls.driver.switch_to.frame(iframe_identifier)
 
-    @classmethod
-    def switch_default(cls):
-        return cls.driver.switch_to.default_content()
+    def get_text_to_alert(self):
+        logging.info("get text alert")
+        return self.get_alert().text
 
-    @classmethod
-    def scroll(cls, x, y):
-        cls.driver.execute_script(f"window.scrollTo({x},{y});")
+
+    def send_keys_alert(self, text):
+        logging.info("send keys alert")
+        self.get_alert().send_keys(text)
+
+
+    def switch_handler(self, value):
+        logging.info("switch handler")
+        self.driver.switch_to.window(self.driver.window_handles[value])
+
+
+    def get_title_handler(self):
+        logging.info("get title handler")
+        return self.driver.title
+
+
+    def switch_iframe(self, iframe_identifier):
+        logging.info("switch iframe")
+        self.driver.switch_to.frame(iframe_identifier)
+
+
+    def switch_default(self):
+        logging.info("switch handler default")
+        return self.driver.switch_to.default_content()
+
+
