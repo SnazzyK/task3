@@ -1,7 +1,8 @@
 from selenium.webdriver.support.wait import WebDriverWait
 
 from config.data_reader import DataReader
-from utilities.browser import Browser, json_config
+
+from utilities.browser import Browser
 
 
 class BasePage:
@@ -9,12 +10,10 @@ class BasePage:
 
     json_config = DataReader(DataReader.FILE_CONFIG)
 
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self, browser: Browser):
+        self.browser = browser
         self.page_name = None
         self.unique_element = None
-
-        self.wait = WebDriverWait(Browser.get(), json_config.get_data_key("TIMEOUT"))
 
     def wait_for_open(self):
         self.unique_element.wait_for_presence()

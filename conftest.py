@@ -10,9 +10,8 @@ import logging
 
 @pytest.fixture(scope="function", autouse=False)
 def driver():
-    logging.info("Запуск браузера")
-    driver = Browser.get()
-
-    yield driver
+    logging.debug("Запуск браузера")
+    browser1 = Browser()
+    yield browser1
     logging.info("Закрытие браузера")
-    Browser.quit()
+    browser1.quit()

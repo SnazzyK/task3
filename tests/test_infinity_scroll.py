@@ -2,8 +2,6 @@ from config.data_reader import DataReader
 
 from pages.task11 import Scroll
 
-from utilities.browser import Browser
-
 json_config = DataReader(DataReader.FILE_CONFIG)
 COUNT = 23
 
@@ -20,5 +18,5 @@ def test_scroll(driver):
             print(count_elem)
             break
         else:
-            Browser.scroll(0, 10000)
+            scroll.scroll_body()
             scroll.found_elements()

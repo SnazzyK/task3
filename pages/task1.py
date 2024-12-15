@@ -3,8 +3,8 @@ import logging
 import pyautogui
 from selenium.webdriver.common.by import By
 
-from base.base_element import BaseElement, Button, Input, WebElement
 from base.base_page import BasePage
+from base.class_web_element import WebElement
 
 
 class BasicAuthorization(BasePage):
@@ -16,12 +16,12 @@ class BasicAuthorization(BasePage):
         super().__init__(driver)
         self.page_name = 'BasicAuthorization'
 
-        self.text_congratulations = WebElement(self.driver, self.TEXT_CONGRATULATIONS,
-                                               description="Login page -> text search ")
+        self.text_congratulations = WebElement(self.browser, self.TEXT_CONGRATULATIONS,
+                                               description="Login page ->text search ")
 
     def login(self, username, password):
         logging.info(f"{self.page_name}: login")
-        pyautogui.typewrite("admin")
+        pyautogui.typewrite(username)
         pyautogui.press("tab")
-        pyautogui.typewrite("admin")
+        pyautogui.typewrite(password)
         pyautogui.press("enter")

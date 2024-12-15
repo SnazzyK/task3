@@ -14,7 +14,7 @@ def test_img(driver):
 
         image_sources = dc.get_image_sources()
 
-        if dc.has_matching_images(image_sources):
+        if len(set(image_sources)) < len(image_sources):
             break
         else:
-            Browser.refresh()
+            driver.refresh()

@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
 
-from base.base_element import BaseElement, Button, Input, WebElement, Label
+
 from base.base_page import BasePage
+from base.class_button import Button
+from base.class_label import Label
 
 
 class Handlers(BasePage):
@@ -13,12 +15,15 @@ class Handlers(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.page_name = 'Handlers'
-        self.unique_element = Label(self.driver, self.UNIQUE_LOC)
+        self.unique_element = Label(self.browser, self.UNIQUE_LOC)
 
-        self.button_click = Button(self.driver, self.BUTTON_CLICK,
+        self.click_button = Button(self.browser, self.BUTTON_CLICK,
                                    description="Handlers page ->  click button")
-        self.text_page = Label(self.driver, self.TEXT_PAGE,
+        self.text_page = Label(self.browser, self.TEXT_PAGE,
                                description="Handlers page ->  text page")
 
-    def click_button(self):
-        self.button_click.click()
+    def click_button_handler(self):
+        self.click_button.click()
+
+    def wait_unique_element(self):
+        self.unique_element.wait_for_visible()

@@ -1,20 +1,20 @@
 from selenium.webdriver.common.by import By
 
-from base.base_element import BaseElement, Button, Input, WebElement, Label
 from base.base_page import BasePage
+from base.class_label import Label
 
 
 class IFrame(BasePage):
     UNIQUE_LOC = (By.XPATH, "//h3[contains(text(),'Opening a new window')]")
 
-    CARD_CLICK = (By.XPATH, "//div[@class = 'card mt-4 top-card'][3]")
+    CARD_CLICK = (By.XPATH, "//div[contains(@class , 'card mt-4 top-card')][3]")
     NESTED_FRAMES_CLICK = (By.XPATH, "//span[text() = 'Nested Frames']")
-    CHILD_IFRAME_TEXT = (By.XPATH, "//*[contains(text(), 'Child Iframe')]")
-    PARENT_FRAME_TEXT = (By.XPATH, "//body[contains(text(),'Parent frame')]")
-    FRAMES_CLICK = (By.XPATH, "//li[@id='item-2']//span[contains(text(),'Frames')]")
+    PARENT_FRAME_TEXT = (By.XPATH, "//body")
+    CHILD_IFRAME_TEXT = (By.XPATH, "//body")
+    FRAMES_CLICK = (By.XPATH, "//*[@id='item-2']//span[contains(text(),'Frames')]")
     FRAMES_TEXT_1 = (By.ID, "sampleHeading")
     NESTED_IFRAME_1 = (By.ID, "frame1")
-    NESTED_IFRAME_2 = (By.XPATH, "//iframe[@srcdoc = '<p>Child Iframe</p>']")
+    NESTED_IFRAME_2 = (By.XPATH, "//iframe[@srcdoc]")
     IFRAME_1 = (By.ID, "frame1")
     IFRAME_2 = (By.ID, "frame1")
     IFRAME_TEXT = (By.ID, "sampleHeading")
@@ -23,28 +23,28 @@ class IFrame(BasePage):
         super().__init__(driver)
         self.page_name = "Iframe"
 
-        self.click_card = Label(self.driver, self.CARD_CLICK,
+        self.click_card = Label(self.browser, self.CARD_CLICK,
                                 description="demoqa main  page ->  click card")
-        self.click_nested_frames = Label(self.driver, self.NESTED_FRAMES_CLICK,
+        self.click_nested_frames = Label(self.browser, self.NESTED_FRAMES_CLICK,
                                          description="alerts Windows page ->  click nested frames")
-        self.text_child = Label(self.driver, self.CHILD_IFRAME_TEXT,
+        self.text_child = Label(self.browser, self.CHILD_IFRAME_TEXT,
                                 description="nested frames page ->  text nested frames")
-        self.text_parent = Label(self.driver, self.PARENT_FRAME_TEXT,
+        self.text_parent = Label(self.browser, self.PARENT_FRAME_TEXT,
                                  description="nested frames page ->  text nested frames")
-        self.click_frame = Label(self.driver, self.FRAMES_CLICK,
+        self.click_frame = Label(self.browser, self.FRAMES_CLICK,
                                  description="frame card page ->  click frame")
-        self.text1_frame = Label(self.driver, self.FRAMES_TEXT_1,
+        self.text1_frame = Label(self.browser, self.FRAMES_TEXT_1,
                                  description="frame card page -> text frame")
 
-        self.nested_iframe_1 = Label(self.driver, self.NESTED_IFRAME_1,
+        self.nested_iframe_1 = Label(self.browser, self.NESTED_IFRAME_1,
                                      description="frame card page -> move Iframe_1")
-        self.nested_iframe_2 = Label(self.driver, self.NESTED_IFRAME_2,
+        self.nested_iframe_2 = Label(self.browser, self.NESTED_IFRAME_2,
                                      description="frame card page -> move Iframe_2")
-        self.iframe_1 = Label(self.driver, self.IFRAME_1,
+        self.iframe_1 = Label(self.browser, self.IFRAME_1,
                               description="frame card page -> move Iframe_1")
-        self.iframe_2 = Label(self.driver, self.IFRAME_2,
+        self.iframe_2 = Label(self.browser, self.IFRAME_2,
                               description="frame card page -> move Iframe_2")
-        self.text_iframe = Label(self.driver, self.IFRAME_TEXT,
+        self.text_iframe = Label(self.browser, self.IFRAME_TEXT,
                                  description="frame card page -> text Iframe")
 
     def click_main_card(self):

@@ -3,82 +3,76 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 from config.data_reader import DataReader
+from utilities.logg_settings import Logg
 
 json_config = DataReader(DataReader.FILE_CONFIG)
 
+
 class Browser:
     def __init__(self):
-        logging.info("Initializing new driver instance")
+        Logg.logger.info("Инициализация нового драйвера")
         chrome_options = Options()
         chrome_options.add_argument(json_config.get_data("Chrome_options", 0))
         self.driver = webdriver.Chrome(options=chrome_options)
 
-    def get(self):
-        logging.info("Navigating to URL")
-        return self.driver
+    def get(self, url):
+        Logg.logger.info(f"Переход по URL: {url}")
+        self.driver.get(url)
 
     def close(self):
-        logging.info("Closing the browser window")
+        Logg.logger.info("Close window browser")
         self.driver.close()
 
     def quit(self):
-        logging.info("Quitting the browser session")
+        Logg.logger.info("Quit browser")
         self.driver.quit()
 
     def refresh(self):
-        logging.info("Refreshing the browser")
+        Logg.logger.info("Refresh browser")
         self.driver.refresh()
 
     def scroll(self, x, y):
-        logging.info("Scrolling in the browser")
+        Logg.logger.info(f"Scroll browser ({x},{y})")
         self.driver.execute_script(f"window.scrollTo({x},{y});")
 
-
-    def get_alert(self):
-        logging.info("get alert")
+    def wait_alert(self):
+        Logg.logger.info("Wait alert")
         return WebDriverWait(self.driver, json_config.get_data_key("TIMEOUT")).until(
             EC.alert_is_present()
         )
 
+    def accept_alert(self):
+        Logg.logger.info("Alert accept")
+        self.wait_alert().accept()
 
-    def accept_to_alert(self):
-        logging.info("accept alert")
-        self.get_alert().accept()
+    def dismiss_alert(self):
+        Logg.logger.info("Dismiss alert")
+        self.wait_alert().dismiss()
 
-
-    def dismiss_to_alert(self):
-        logging.info("dismiss alert")
-        self.get_alert().dismiss()
-
-
-    def get_text_to_alert(self):
-        logging.info("get text alert")
-        return self.get_alert().text
-
+    def get_text_alert(self):
+        Logg.logger.info("Get text alert")
+        return self.wait_alert().text
 
     def send_keys_alert(self, text):
-        logging.info("send keys alert")
-        self.get_alert().send_keys(text)
-
+        Logg.logger.info(f"Send text in alert: {text}")
+        self.wait_alert().send_keys(text)
 
     def switch_handler(self, value):
-        logging.info("switch handler")
+        Logg.logger.info(f"Switch to handler: {value}")
         self.driver.switch_to.window(self.driver.window_handles[value])
 
-
     def get_title_handler(self):
-        logging.info("get title handler")
+        Logg.logger.info("Get name handler")
         return self.driver.title
 
-
     def switch_iframe(self, iframe_identifier):
-        logging.info("switch iframe")
-        self.driver.switch_to.frame(iframe_identifier)
-
+        Logg.logger.info(f"Switch to iframe: {iframe_identifier}")
+        return self.driver.switch_to.frame(iframe_identifier)
 
     def switch_default(self):
-        logging.info("switch handler default")
+        Logg.logger.info("Switch to main content")
         return self.driver.switch_to.default_content()
 
 
