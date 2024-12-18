@@ -1,8 +1,0 @@
-{
-  "LEVEL": "logging.DEBUG",
-  "FILENAME": "loging.log",
-  "FORMAT": "%(levelname)s (%(asctime)s): %(message)s (Line: %(lineno)d) [%(filename)s]",
-  "DATEFMT":"%d/%m/%Y %I:%M:%S",
-  "ENCODING": "UTF-8",
-  "FILEMODE": "w"
-}

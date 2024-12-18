@@ -1,22 +1,17 @@
-from config.data_reader import DataReader
+from pages.Scroll_Page import ScrollPage
 
-from pages.task11 import Scroll
-
-json_config = DataReader(DataReader.FILE_CONFIG)
 COUNT = 23
 
 
-def test_scroll(driver):
-    driver.get(json_config.get_data_key("URL-10"))
-    scroll = Scroll(driver)
+def test_scroll(driver, config_reader):
+    driver.get(config_reader.get_data_key("URL-10"))
+    scroll = ScrollPage(driver)
 
     while True:
-        elem = scroll.found_elements()
-        count_elem = len(elem)
+        count_elem = driver.get_elements("div", "jscroll-added")
 
-        if count_elem == COUNT:
-            print(count_elem)
+        if len(count_elem) == COUNT:
+            print(len(count_elem))
             break
         else:
-            scroll.scroll_body()
-            scroll.found_elements()
+            scroll.scroll_to_bottom()

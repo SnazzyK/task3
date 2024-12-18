@@ -1,16 +1,15 @@
 from config.data_reader import DataReader
 
-from pages.task6 import Hovers
+from pages.Hovers_Page import HoversPage
 
-json_config = DataReader(DataReader.FILE_CONFIG)
 NAME_HOVER_1 = "name: user1"
 NAME_HOVER_2 = "name: user2"
 NAME_HOVER_3 = "name: user3"
 
 
-def test_hover(driver):
-    driver.get(json_config.get_data_key("URL-5"))
-    hover = Hovers(driver)
+def test_hover(driver, config_reader):
+    driver.get(config_reader.get_data_key("URL-5"))
+    hover = HoversPage(driver)
 
     hover.check_hover(1)
     text_hover_1 = hover.get_text_element(1).get_text()

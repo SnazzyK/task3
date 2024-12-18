@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
 
 from base.base_page import BasePage
-from base.class_label import Label
+from base.label import Label
+from conftest import driver
 
 
-class IFrame(BasePage):
+class IFramePage(BasePage):
     UNIQUE_LOC = (By.XPATH, "//h3[contains(text(),'Opening a new window')]")
 
     CARD_CLICK = (By.XPATH, "//div[contains(@class , 'card mt-4 top-card')][3]")
@@ -53,17 +54,17 @@ class IFrame(BasePage):
     def click_nested_frames_card(self):
         self.click_nested_frames.click()
 
-    def find_nested_frame_1(self):
-        return self.nested_iframe_1.wait_for_presence()
+    def wait_switch_nested_iframe_1(self):
+        self.nested_iframe_1.switch_to_frame()
 
-    def find_nested_frame_2(self):
-        return self.nested_iframe_2.wait_for_presence()
+    def wait_switch_nested_iframe_2(self):
+        self.nested_iframe_2.switch_to_frame()
 
-    def find_frame_1(self):
-        return self.iframe_1.wait_for_presence()
+    def wait_switch_iframe_1(self):
+        return self.iframe_1.switch_to_frame()
 
-    def find_frame_2(self):
-        return self.iframe_2.wait_for_presence()
+    def wait_switch_iframe_2(self):
+        return self.iframe_2.switch_to_frame()
 
-    def check_frames(self):
+    def click_frames(self):
         self.click_frame.click()

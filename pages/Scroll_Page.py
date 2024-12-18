@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
 
 from base.base_page import BasePage
-from base.class_web_element import WebElement
+from base.web_element import WebElement
+from conftest import driver
 
 
-class Scroll(BasePage):
+class ScrollPage(BasePage):
     UNIQUE_LOC = (By.XPATH, "//*[contains(@class , 'example')]")
 
     SCROLL_ADDED = (By.XPATH, "//div[@class = 'jscroll-added']")
@@ -16,8 +17,5 @@ class Scroll(BasePage):
         self.scroll_added = WebElement(self.browser, self.SCROLL_ADDED,
                                        description="Scroll  page -> added text")
 
-    def found_elements(self):
-         return self.scroll_added.wait_for_all_visible()
-
-    def scroll_body(self):
-        self.browser.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    def scroll_to_bottom(self):
+        self.scroll_added.execute_script_scroll_to()

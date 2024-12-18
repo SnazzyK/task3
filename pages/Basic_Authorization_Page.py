@@ -1,13 +1,15 @@
 import logging
 
 import pyautogui
+from scripts.regsetup import description
 from selenium.webdriver.common.by import By
 
 from base.base_page import BasePage
-from base.class_web_element import WebElement
+from base.label import Label
+from base.web_element import WebElement
 
 
-class BasicAuthorization(BasePage):
+class BasicAuthorizationPage(BasePage):
     UNIQUE_LOC = (By.XPATH, "//button[@type='submit']")
 
     TEXT_CONGRATULATIONS = (By.XPATH, "//p[contains(text(),'Congratulations!')]")
@@ -15,13 +17,6 @@ class BasicAuthorization(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.page_name = 'BasicAuthorization'
-
+        self.unique_element = Label(self.browser, self.UNIQUE_LOC, description="Unique element page")
         self.text_congratulations = WebElement(self.browser, self.TEXT_CONGRATULATIONS,
                                                description="Login page ->text search ")
-
-    def login(self, username, password):
-        logging.info(f"{self.page_name}: login")
-        pyautogui.typewrite(username)
-        pyautogui.press("tab")
-        pyautogui.typewrite(password)
-        pyautogui.press("enter")

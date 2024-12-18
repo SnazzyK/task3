@@ -4,8 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 from base.base_page import BasePage
-from base.class_button import Button
-from base.class_label import Label
+from base.button import Button
+from base.label import Label
 
 
 class JsPage(BasePage):
@@ -40,8 +40,6 @@ class JsPage(BasePage):
     def click_button_prompt(self):
         logging.info(f"{self.page_name}: prompt")
         self.button_click_prompt.click()
-
-
 
     def click_button_alert_js(self):
         logging.info(f"{self.page_name}: Click and wait button alert js")

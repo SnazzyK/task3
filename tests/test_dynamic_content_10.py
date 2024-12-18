@@ -1,18 +1,13 @@
-from config.data_reader import DataReader
-from pages.task10 import DynamicContent
-
-from utilities.browser import Browser
-
-json_config = DataReader(DataReader.FILE_CONFIG)
+from pages.Dynamic_Content_Page import DynamicContentPage
 
 
-def test_img(driver):
-    driver.get(json_config.get_data_key("URL-9"))
-    dc = DynamicContent(driver)
+def test_img(driver, config_reader):
+    driver.get(config_reader.get_data_key("URL-9"))
+    dc = DynamicContentPage(driver)
 
     while True:
 
-        image_sources = dc.get_image_sources()
+        image_sources = driver.get_elements("div", "large-2 columns")
 
         if len(set(image_sources)) < len(image_sources):
             break

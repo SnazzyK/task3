@@ -1,7 +1,7 @@
 import logging
 
 
-class Logg:
+class Logger:
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     FILENAME = 'test.log'

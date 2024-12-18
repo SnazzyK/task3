@@ -3,12 +3,12 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from base.base_page import BasePage
-from base.class_button import Button
-from base.class_input import Input
-from base.class_label import Label
+from base.button import Button
+from base.input import Input
+from base.label import Label
 
 
-class FileUpload(BasePage):
+class FileUploadPage(BasePage):
     UNIQUE_LOC = (By.XPATH, "//*[@class = 'example']")
 
     BUTTON_CHOOSE = (By.ID, "file-upload")
@@ -18,7 +18,6 @@ class FileUpload(BasePage):
     DRAG_DROP = (By.ID, "drag-drop-upload")
     TEXT_DRAG_DROP = (By.XPATH, "//*[@id = 'drag-drop-upload']//*[@data-dz-name='']")
     ELEM_DRAG_DROP = (By.XPATH, "//*[@id = 'drag-drop-upload']//*[@class='dz-success-mark']")
-
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -52,22 +51,13 @@ class FileUpload(BasePage):
         self.button_upload.click()
 
     def wait_drop_windows(self):
-        return self.button_drag_drop.wait_for_visible()
+        self.button_drag_drop.wait_for_visible()
 
-
-
-    def find_text_drag_drop(self):
+    def wait_text_drag_drop(self):
         self.text_drag_drop.wait_for_visible()
         self.elem_drag_drop.wait_for_visible()
 
-    def drag_and_drop_file(self,file_x,file_y,drop_x,drop_y,duration):
-        pyautogui.moveTo(file_x, file_y)
-        pyautogui.mouseDown()
-        pyautogui.moveTo(drop_x, drop_y, duration)
-        pyautogui.mouseUp()
-
-
-    def file_move(self,file_path):
+    def move_file(self, file_path):
         pyautogui.write(file_path)
         pyautogui.press('enter')
-        self.find_text_drag_drop()
+        self.wait_text_drag_drop()

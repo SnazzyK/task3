@@ -1,15 +1,12 @@
-from config.data_reader import DataReader
+from pages.Alerts_Context_Click_Page import AlertsContextClickPage
 
-from pages.task4 import AlertsContextClick
-from utilities.browser import Browser
-
-json_config = DataReader(DataReader.FILE_CONFIG)
+EXPECTED_RESULT = "You selected a context menu"
 
 
-def test_box_for_js(driver):
-    driver.get(json_config.get_data_key("URL-3"))
-    acc = AlertsContextClick(driver)
+def test_box_for_js(driver, config_reader):
+    driver.get(config_reader.get_data_key("URL-3"))
+    acc = AlertsContextClickPage(driver)
     acc.click_box()
-    text_alert = driver.get_text_to_alert()
-    assert text_alert == "You selected a context menu"
-    driver.accept_to_alert()
+    text_alert = driver.get_text_alert()
+    assert text_alert == EXPECTED_RESULT, f"Actual result:{text_alert}\nExpected result:{EXPECTED_RESULT}"
+    driver.accept_alert()

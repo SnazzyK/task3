@@ -1,10 +1,9 @@
 import json
-from utilities.logg_settings import Logg
+from utilities.logg_settings import Logger
 
 
 class DataReader:
     FILE_CONFIG = "config/config.json"
-    LOGGER_CONFIG = "config/logger_config.json"
 
     def __init__(self, file_config=FILE_CONFIG):
         self.file_path = file_config
@@ -22,14 +21,16 @@ class DataReader:
         value = self.data.get(key)
 
         if isinstance(value, dict):
-            Logg.logger.debug(f"Key '{key}' is a dictionary. Returning values as a list.")
+            Logger.logger.info(f"Key '{key}' is a dictionary. Returning values as a list.")
             return list(value.values())
 
         elif isinstance(value, list):
-            Logg.logger.debug(f"Key '{key}' is a list. Returning the full list.")
+            Logger.logger.info(f"Key '{key}' is a list. Returning the full list.")
             if index is not None:
                 return value[index]
 
         elif isinstance(value, str):
-            Logg.logger.debug(f"Key '{key}' is a string. Returning the string value.")
+            Logger.logger.info(f"Key '{key}' is a string. Returning the string value.")
+            return value
+        else:
             return value
