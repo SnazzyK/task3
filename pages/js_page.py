@@ -6,10 +6,11 @@ from selenium.webdriver.common.by import By
 from base.base_page import BasePage
 from base.button import Button
 from base.label import Label
+from base.web_element import WebElement
 
 
 class JsPage(BasePage):
-    UNIQUE_LOC = (By.XPATH, "//button[@type='submit']")
+    UNIQUE_LOC = (By.XPATH, "//*[contains(text(), 'JavaScript Alerts')]")
 
     BUTTON_JS_ALERT = (By.XPATH, "//*[@onclick='jsAlert()']")
     RESULT = (By.ID, "result")
@@ -19,6 +20,8 @@ class JsPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.page_name = 'JsAlert'
+
+        self.unique_element = WebElement(self.browser, self.UNIQUE_LOC, description="unique element")
 
         self.button_click_alert = Button(self.browser, self.BUTTON_JS_ALERT,
                                          description="JsAlert page ->  JS Alert click")
@@ -43,12 +46,12 @@ class JsPage(BasePage):
 
     def click_button_alert_js(self):
         logging.info(f"{self.page_name}: Click and wait button alert js")
-        self.browser.driver.execute_script("arguments[0].click()", self.button_click_alert.wait_for_presence())
+        self.button_click_alert.click_button_js()
 
     def click_button_confirm_js(self):
         logging.info(f"{self.page_name}: Click and wait button confirm js")
-        self.browser.driver.execute_script("arguments[0].click()", self.button_click_confirm.wait_for_presence())
+        self.button_click_confirm.click_button_js()
 
     def click_button_prompt_js(self):
         logging.info(f"{self.page_name}: Click and wait button prompt js")
-        self.browser.driver.execute_script("arguments[0].click()", self.button_click_prompt.wait_for_presence())
+        self.button_click_prompt.click_button_js()

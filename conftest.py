@@ -1,8 +1,9 @@
 import pytest
 
 from config.data_reader import DataReader
-from utilities.Browser_Factory import BrowserFactory
+from utilities.browser_factory import BrowserFactory
 from utilities.browser import Browser
+from utilities.browser_type import BrowserType
 
 json_config = DataReader(DataReader.FILE_CONFIG)
 
@@ -11,11 +12,11 @@ import logging
 
 @pytest.fixture(scope="function", autouse=False)
 def driver():
-    logging.info("Launching the browser")
-    driver_instance = BrowserFactory.get_browser("chrome")
+    logging.info("Launch the browser")
+    driver_instance = BrowserFactory.get_browser(BrowserType.CHROME.value)
     browser = Browser(driver_instance)
     yield browser
-    logging.info("Закрытие браузера")
+    logging.info("Close browser")
     browser.quit()
 
 

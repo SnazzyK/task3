@@ -14,8 +14,7 @@ class ScrollPage(BasePage):
         super().__init__(driver)
         self.page_name = "scroll"
 
+        self.unique_element = WebElement(self.browser, self.UNIQUE_LOC, description="unique element")
+
         self.scroll_added = WebElement(self.browser, self.SCROLL_ADDED,
                                        description="Scroll  page -> added text")
-
-    def scroll_to_bottom(self):
-        self.scroll_added.execute_script_scroll_to()

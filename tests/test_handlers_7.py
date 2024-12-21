@@ -1,5 +1,5 @@
 from config.data_reader import DataReader
-from pages.Handlers_Page import HandlersPage
+from pages.handlers_page import HandlersPage
 
 EXPECTED_RESULT = 'New Window'
 
@@ -7,7 +7,7 @@ EXPECTED_RESULT = 'New Window'
 def test_handlers(driver, config_reader):
     driver.get(config_reader.get_data_key("URL-6"))
     handler = HandlersPage(driver)
-
+    handler.wait_for_open()
     handler.click_button_handler()
     driver.switch_handler(1)
     text_page = handler.text_page.get_text()

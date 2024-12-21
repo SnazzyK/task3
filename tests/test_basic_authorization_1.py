@@ -1,5 +1,5 @@
 from config.data_reader import DataReader
-from pages.Basic_Authorization_Page import BasicAuthorizationPage
+from pages.basic_authorization_page import BasicAuthorizationPage
 
 from faker import Faker
 
@@ -15,6 +15,7 @@ EXPECTED_RESULT = "Congratulations! You must have the proper credentials."
 def test_login_alert(driver):
     driver.get(URL)
     bap = BasicAuthorizationPage(driver)
+    bap.wait_for_open()
 
-    text = bap.text_congratulations.get_text()
+    text = bap.get_text_congratulations
     assert text == {EXPECTED_RESULT}, f"Actual result:{text}\nExpected result:{EXPECTED_RESULT}"

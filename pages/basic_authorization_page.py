@@ -20,3 +20,6 @@ class BasicAuthorizationPage(BasePage):
         self.unique_element = Label(self.browser, self.UNIQUE_LOC, description="Unique element page")
         self.text_congratulations = WebElement(self.browser, self.TEXT_CONGRATULATIONS,
                                                description="Login page ->text search ")
+
+    def get_text_congratulations(self):
+        return self.text_congratulations.get_text()

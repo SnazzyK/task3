@@ -2,11 +2,12 @@ from selenium.webdriver.common.by import By
 
 from base.base_page import BasePage
 from base.label import Label
+from base.web_element import WebElement
 from conftest import driver
 
 
 class IFramePage(BasePage):
-    UNIQUE_LOC = (By.XPATH, "//h3[contains(text(),'Opening a new window')]")
+    UNIQUE_LOC = (By.XPATH, "//h3[contains(text(),'JavaScript Alerts')]")
 
     CARD_CLICK = (By.XPATH, "//div[contains(@class , 'card mt-4 top-card')][3]")
     NESTED_FRAMES_CLICK = (By.XPATH, "//span[text() = 'Nested Frames']")
@@ -23,6 +24,8 @@ class IFramePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.page_name = "Iframe"
+
+        self.unique_element = WebElement(self.browser, self.UNIQUE_LOC, description="unique element")
 
         self.click_card = Label(self.browser, self.CARD_CLICK,
                                 description="demoqa main  page ->  click card")
@@ -54,17 +57,17 @@ class IFramePage(BasePage):
     def click_nested_frames_card(self):
         self.click_nested_frames.click()
 
-    def wait_switch_nested_iframe_1(self):
-        self.nested_iframe_1.switch_to_frame()
+    def wait_nested_iframe_1(self):
+        self.nested_iframe_1.wait_for_visible()
 
-    def wait_switch_nested_iframe_2(self):
-        self.nested_iframe_2.switch_to_frame()
+    def wait_nested_iframe_2(self):
+        self.nested_iframe_2.wait_for_visible()
 
-    def wait_switch_iframe_1(self):
-        return self.iframe_1.switch_to_frame()
+    def wait_iframe_1(self):
+        self.iframe_1.wait_for_visible()
 
-    def wait_switch_iframe_2(self):
-        return self.iframe_2.switch_to_frame()
+    def wait_iframe_2(self):
+        self.iframe_2.wait_for_visible()
 
     def click_frames(self):
         self.click_frame.click()

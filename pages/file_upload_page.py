@@ -1,3 +1,5 @@
+import time
+
 import pyautogui
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -6,10 +8,12 @@ from base.base_page import BasePage
 from base.button import Button
 from base.input import Input
 from base.label import Label
+from base.web_element import WebElement
+from conftest import driver
 
 
 class FileUploadPage(BasePage):
-    UNIQUE_LOC = (By.XPATH, "//*[@class = 'example']")
+    UNIQUE_LOC = (By.XPATH, "//*[contains(@class , 'example')]")
 
     BUTTON_CHOOSE = (By.ID, "file-upload")
     BUTTON_UPLOAD = (By.ID, "file-submit")
@@ -22,6 +26,8 @@ class FileUploadPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.page_name = "File"
+
+        self.unique_element = WebElement(self.browser, self.UNIQUE_LOC, description="unique element")
 
         self.button_choose_file = Input(self.browser, self.BUTTON_CHOOSE,
                                         description="file  page -> added file")
@@ -51,13 +57,15 @@ class FileUploadPage(BasePage):
         self.button_upload.click()
 
     def wait_drop_windows(self):
-        self.button_drag_drop.wait_for_visible()
+        return self.button_drag_drop.wait_for_visible()
 
     def wait_text_drag_drop(self):
         self.text_drag_drop.wait_for_visible()
         self.elem_drag_drop.wait_for_visible()
 
-    def move_file(self, file_path):
+    def click_button_and_move_file(self, element, file_path):
+        self.button_drag_drop.move_and_context_click(element)
+        time.sleep(1)
         pyautogui.write(file_path)
         pyautogui.press('enter')
         self.wait_text_drag_drop()

@@ -5,10 +5,10 @@ import pyautogui
 
 from config.data_reader import DataReader
 
-from pages.File_Upload_Page import FileUploadPage
+from pages.file_upload_page import FileUploadPage
 from pywinauto import Application
 
-from utilities.PyAutoGuiUtils import PyAuto
+from utilities.py_auto_gui_utils import PyAuto
 
 relative_path = "file_upload/task_file.txt"
 file_path = os.path.join(os.getcwd(), relative_path).replace("/", "\\")
@@ -29,6 +29,7 @@ def test_file(driver, config_reader):
     url = config_reader.get_data_key("URL-11")
     driver.get(url)
     file_upload = FileUploadPage(driver)
+    file_upload.wait_for_open()
     file_upload.send_file(file_path)
     text_upload = file_upload.text_upload.get_text()
     assert text_upload == EXPECTED_RESULT, f"Actual result:{text_upload}\nExpected result:{EXPECTED_RESULT}"
@@ -39,10 +40,8 @@ def test_file(driver, config_reader):
 def test_file_and_dialog_window(driver, config_reader):
     driver.get(config_reader.get_data_key("URL-11"))
     file_upload = FileUploadPage(driver)
-    elem = file_upload.wait_drop_windows()
-    file_upload.actions.move_to_element(elem).click().perform()
-    time.sleep(1)
-    file_upload.move_file(file_path)
+    element = file_upload.wait_drop_windows()
+    file_upload.click_button_and_move_file(element, file_path)
 
 
 def test_drag_drop_win(driver, config_reader):

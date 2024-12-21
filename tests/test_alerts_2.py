@@ -1,6 +1,6 @@
 from conftest import json_config
 
-from pages.Js_Page import JsPage
+from pages.js_page import JsPage
 
 from faker import Faker
 
@@ -16,6 +16,7 @@ EXPECTED_RESULT_PROMPT = "I am a JS prompt"
 def test_alerts(driver, config_reader):
     driver.get(config_reader.get_data_key("URL-2"))
     js_page = JsPage(driver)
+    js_page.wait_for_open()
     js_page.click_button_alert()
     text_alert = driver.get_text_alert()
     assert text_alert == EXPECTED_RESULT_ALERTS, f"Actual result:{text_alert}\nExpected result:{EXPECTED_RESULT_ALERTS}"

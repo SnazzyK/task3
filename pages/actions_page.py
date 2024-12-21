@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from base.base_page import BasePage
 from base.label import Label
 from base.web_element import WebElement
+from utilities.logg_settings import Logger
 
 
 class ActionsPage(BasePage):
@@ -16,7 +17,8 @@ class ActionsPage(BasePage):
     SLIDER = (By.XPATH, "//input[contains(@onchange,'showValue')]")
     SLIDER_RESULT = (By.ID, "range")
     SLIDER_CONTAINS = (By.XPATH, "//*[contains(@class , 'sliderContainer')]")
-    STEP = 5
+    DEFAULT_STEP_SLIDER = (By.XPATH, "//input[@step]")
+    STEP_BACK = 5
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -27,12 +29,13 @@ class ActionsPage(BasePage):
         self.slider_contains = WebElement(self.browser, self.SLIDER_CONTAINS,
                                           description="Actions page ->  slider result")
         self.unique_element = Label(self.browser, self.UNIQUE_LOC, description="unique element page")
+        self.default_step_slider = WebElement(self.browser, self.DEFAULT_STEP_SLIDER, description="default step slider")
 
-    def random_move_slider(self, count):
+    def random_move_slider(self, count, step_default):
         action = ActionChains(self.browser.driver)
         slider = self.slider_move.wait_for_visible()
         action.move_to_element(slider).click().perform()
-        for i in range(self.STEP):
+        for i in range(self.STEP_BACK):
             action.key_down(Keys.ARROW_DOWN).perform()
             action.key_up(Keys.ARROW_DOWN).perform()
 
@@ -42,17 +45,13 @@ class ActionsPage(BasePage):
         for i in range(count):
             action.key_down(Keys.ARROW_UP).perform()
             action.key_up(Keys.ARROW_UP).perform()
-            counter += 0.5
+            counter += float(step_default)
         return counter
 
     @staticmethod
     def get_format_number(number):
-        if number % 1 == 0:
-            return int(number)
-        return number
-
-    def get_unique_element_text(self):
-        return self.unique_element.get_text()
+        rounded = round(number)
+        return rounded if rounded == number else number
 
     def get_result_slider(self):
         return self.slider_result.get_text()

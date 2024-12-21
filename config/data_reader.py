@@ -7,9 +7,9 @@ class DataReader:
 
     def __init__(self, file_config=FILE_CONFIG):
         self.file_path = file_config
-        self.data = self.load_json_data()
+        self.data = self._load_json_data()
 
-    def load_json_data(self):
+    def _load_json_data(self):
         with open(self.file_path, 'r') as f:
             return json.load(f)
 
@@ -32,5 +32,4 @@ class DataReader:
         elif isinstance(value, str):
             Logger.logger.info(f"Key '{key}' is a string. Returning the string value.")
             return value
-        else:
-            return value
+
