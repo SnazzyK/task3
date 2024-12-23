@@ -1,0 +1,30 @@
+{
+  "URL-1": "the-internet.herokuapp.com/basic_auth",
+  "URL-2": "https://the-internet.herokuapp.com/javascript_alerts",
+  "URL-3": "https://the-internet.herokuapp.com/context_menu",
+  "URL-4": "https://the-internet.herokuapp.com/horizontal_slider",
+  "URL-5": "https://the-internet.herokuapp.com/hovers",
+  "URL-6": "https://the-internet.herokuapp.com/windows",
+  "URL-7": "https://the-internet.herokuapp.com/iframe",
+  "URL-8": "https://demoqa.com/",
+  "URL-9": "https://the-internet.herokuapp.com/dynamic_content",
+  "URL-10": "https://the-internet.herokuapp.com/infinite_scroll",
+  "URL-11": "https://the-internet.herokuapp.com/upload",
+  "TIMEOUT": "10",
+  "poll_frequency": "0.1",
+  "Chrome_options": [
+    "--start-maximized",
+    "--headless",
+    "--incognito"
+  ],
+  "Firefox_options": [
+    "--start-maximized",
+    "--headless",
+    "--incognito"
+  ],
+  "Edge_options": [
+    "--start-maximized",
+    "--headless",
+    "--incognito"
+  ]
+}
