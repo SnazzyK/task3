@@ -34,23 +34,25 @@ def test_file(driver, config_reader):
     text_upload = file_upload.text_upload.get_text()
     assert text_upload == EXPECTED_RESULT, f"Actual result:{text_upload}\nExpected result:{EXPECTED_RESULT}"
     text_file = file_upload.text_file.get_text()
-    assert text_file == file_name
+    assert text_file == file_name , f"Actual result:{text_file}\nExpected result:{file_name}"
 
 
 def test_file_and_dialog_window(driver, config_reader):
     driver.get(config_reader.get_data_key("URL-11"))
+    pyauto = PyAuto()
     file_upload = FileUploadPage(driver)
     element = file_upload.wait_drop_windows()
-    file_upload.click_button_and_move_file(element, file_path)
+    file_upload.move_and_click(element)
+    pyauto.click_button_and_move_file(file_path)
+    file_upload.wait_text_drag_drop()
+
 
 
 def test_drag_drop_win(driver, config_reader):
     driver.get(config_reader.get_data_key("URL-11"))
     file_upload = FileUploadPage(driver)
     pyauto = PyAuto()
-    app = Application(backend="uia").start(f"explorer.exe {file_win}")
-    time.sleep(2)
-    pyauto.drag_and_drop_file(FILE_X, FILE_Y, DROP_X, DROP_Y, DURATION)
+    pyauto.drag_and_drop_file(FILE_X, FILE_Y, DROP_X, DROP_Y, DURATION,file_win)
     file_upload.wait_text_drag_drop()
     text = file_upload.text_drag_drop.get_text()
     pyauto.close_window()

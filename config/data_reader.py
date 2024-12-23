@@ -32,4 +32,5 @@ class DataReader:
         elif isinstance(value, str):
             Logger.logger.info(f"Key '{key}' is a string. Returning the string value.")
             return value
-
+        else:
+            return value

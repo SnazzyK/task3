@@ -7,7 +7,7 @@ def test_img(driver, config_reader):
     dc.wait_for_open()
     while True:
 
-        image_sources = driver.get_elements("div", "large-2 columns")
+        image_sources = dc.element_images()
 
         if len(set(image_sources)) < len(image_sources):
             break

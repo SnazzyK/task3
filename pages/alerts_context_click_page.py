@@ -20,7 +20,7 @@ class AlertsContextClickPage(BasePage):
 
     def wait_element_box_click(self):
         element = self.element_box_click.wait_for_visible()
-        return element
+
 
     def click_box(self, element):
         logging.info(f"{self.page_name}: box click")

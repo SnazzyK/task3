@@ -12,9 +12,9 @@ json_config = DataReader(DataReader.FILE_CONFIG)
 class Input(BaseElement):
 
     def send_keys(self, value):
-        Logger.logger.info(f"send keys: {self.description}, send text: {value}")
+        Logger.logger.info(f"send keys: {value}")
         self.wait_for_visible().send_keys(value)
 
     def clear(self):
-        Logger.logger.info(f"clear field:{self.description}")
+        Logger.logger.info(f"clear field: {self.description}")
         self.wait_for_visible().clear()

@@ -35,7 +35,7 @@ class Browser:
         Logger.logger.info(f"Window scroll ")
         self.driver.execute_script_wrapper("window.scrollTo(0, document.body.scrollHeight);")
 
-    def execute_script_wrapper(self, script, *args):
+    def execute_script(self, script, *args):
         Logger.logger.info(f"Execute JavaScript: {script} with arguments: {args}")
         try:
             return self.driver.execute_script(script, *args)

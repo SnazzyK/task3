@@ -27,7 +27,7 @@ class FileUploadPage(BasePage):
         super().__init__(driver)
         self.page_name = "File"
 
-        self.unique_element = WebElement(self.browser, self.UNIQUE_LOC, description="unique element")
+        self.unique_element = WebElement(self.browser, self.UNIQUE_LOC, description="file  page -> unique element")
 
         self.button_choose_file = Input(self.browser, self.BUTTON_CHOOSE,
                                         description="file  page -> added file")
@@ -63,9 +63,7 @@ class FileUploadPage(BasePage):
         self.text_drag_drop.wait_for_visible()
         self.elem_drag_drop.wait_for_visible()
 
-    def click_button_and_move_file(self, element, file_path):
+    def move_and_click(self, element):
         self.button_drag_drop.move_and_context_click(element)
-        time.sleep(1)
-        pyautogui.write(file_path)
-        pyautogui.press('enter')
-        self.wait_text_drag_drop()
+
+

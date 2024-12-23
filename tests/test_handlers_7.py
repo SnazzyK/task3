@@ -27,4 +27,4 @@ def test_handlers(driver, config_reader):
     driver.switch_handler(1)
     driver.close()
     driver.switch_handler(1)
-    driver.close()
+

@@ -12,7 +12,7 @@ json_config = DataReader(DataReader.FILE_CONFIG)
 
 class BrowserFactory:
     @staticmethod
-    def get_browser(browser_name="chrome"):
+    def get_browser(browser_name=BrowserType.CHROME.value):
         Logger.logger.info(f"Creating a browser instance: {browser_name}")
         browser_name = browser_name.lower()
 

@@ -12,11 +12,9 @@ import logging
 
 @pytest.fixture(scope="function", autouse=False)
 def driver():
-    logging.info("Launch the browser")
-    driver_instance = BrowserFactory.get_browser(BrowserType.CHROME.value)
+    driver_instance = BrowserFactory.get_browser(BrowserType.CHROME)
     browser = Browser(driver_instance)
     yield browser
-    logging.info("Close browser")
     browser.quit()
 
 
